@@ -1,6 +1,4 @@
 using MassTransit;
-using Payment.API.Consumers;
-using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +9,9 @@ IWebHostEnvironment environment = builder.Environment;
 // Masstransit-RabbitMQ Configuration
 builder.Services.AddMassTransit(config =>
 {
-    config.AddConsumer<StockReservedEventConsumer>();
-
     config.UsingRabbitMq((ctx, cfg) =>
     {
         cfg.Host(configuration.GetConnectionString("RabbitMQ"));
-
-        cfg.ReceiveEndpoint(RabbitMQSettings.StockReservedEventQueueName, e =>
-        {
-            e.ConfigureConsumer<StockReservedEventConsumer>(ctx);
-        });
     });
 });
 
