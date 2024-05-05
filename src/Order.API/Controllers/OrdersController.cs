@@ -59,8 +59,6 @@ namespace Order.API.Controllers
 
             await sendEndpoint.Send<IOrderedCreatedRequestEvent>(orderCreatedRequestEvent);
 
-            //await _publishEndpoint.Publish(orderCreatedEvent);
-
             return Ok();
         }
 
